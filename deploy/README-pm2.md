@@ -2,6 +2,28 @@
 
 Файл в корне репозитория: **`ecosystem.config.cjs`**.
 
+## Чистый Ubuntu: что установить до `venv` / `npm` / `pm2`
+
+Если видите **`python3-venv`** не найден, **`npm: command not found`**, **`pm2: command not found`**:
+
+```bash
+sudo apt update
+sudo apt install -y python3 python3-venv python3-pip curl
+sudo apt install -y nodejs npm
+sudo npm install -g pm2
+```
+
+Проверка:
+
+```bash
+python3 -m venv --help
+node -v
+npm -v
+pm2 -v
+```
+
+Нужен **Node 18+** для Next.js 14. Если `apt` даёт слишком старый Node (смотрите `node -v`), поставьте LTS с [NodeSource](https://github.com/nodesource/distributions) или используйте **nvm**.
+
 ## Требования
 
 - **PostgreSQL** уже запущен, в **`.env`** в корне проекта заданы `DATABASE_URL`, `BOT_TOKEN`, `ADMIN_API_KEY` и остальное.
