@@ -1,0 +1,8 @@
+# Скопируйте на сервер как Caddyfile и подставьте свой домен.
+# Запуск: caddy run --config Caddyfile
+# Proxy на порт API из docker compose (8000 на хосте).
+
+api.example.com {
+    encode gzip
+    reverse_proxy 127.0.0.1:8000
+}

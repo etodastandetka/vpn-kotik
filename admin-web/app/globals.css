@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #06030d;
+  --panel: #0d0818;
+  --border: #3b2f55;
+  --muted: #9ca3af;
+  --accent: #8b5cf6;
+  --accent2: #d946ef;
+  --danger: #f43f5e;
+  --warn: #fbbf24;
+}
+
+.phantom-glow {
+  box-shadow:
+    0 0 80px -20px rgba(139, 92, 246, 0.45),
+    0 0 40px -30px rgba(217, 70, 239, 0.35);
+}
+
+body {
+  @apply min-h-screen antialiased text-slate-100;
+  background:
+    radial-gradient(ellipse 100% 70% at 80% -10%, rgba(91, 33, 182, 0.22), transparent 50%),
+    radial-gradient(ellipse 80% 50% at 10% 20%, rgba(217, 70, 239, 0.12), transparent 45%),
+    radial-gradient(ellipse 120% 80% at 50% 100%, #1a0b2e 0%, var(--bg) 55%);
+}

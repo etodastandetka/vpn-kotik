@@ -1,0 +1,12 @@
+-- MVP: после оплаты подставить реальный subscription URL из 3x-ui вручную.
+-- Замените TELEGRAM_ID и URL. Актуальна последняя подписка по expires_at обновляется так:
+
+-- UPDATE subscriptions s
+-- SET config_stub = 'https://ваш-панель/sub/....'
+-- FROM users u
+-- WHERE s.user_id = u.id AND u.telegram_id = 123456789
+--   AND s.id = (
+--     SELECT id FROM subscriptions s2
+--     WHERE s2.user_id = u.id
+--     ORDER BY s2.expires_at DESC LIMIT 1
+--   );
