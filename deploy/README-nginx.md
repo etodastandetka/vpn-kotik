@@ -2,6 +2,28 @@
 
 Конфиги **без** `listen [::]:80` — на VPS без IPv6 иначе будет `socket() [::]:80 failed (97: Address family not supported by protocol)`.
 
+### Если ошибка `[::]:80` остаётся
+
+Её часто даёт **не** наш конфиг, а стандартный **`/etc/nginx/sites-enabled/default`** (там есть `listen [::]:80`).
+
+```bash
+sudo grep -R '\[::\]' /etc/nginx/
+```
+
+**Обязательно** отключите дефолт (если ещё не сделали):
+
+```bash
+sudo rm -f /etc/nginx/sites-enabled/default
+```
+
+Если `grep` показывает другие файлы — уберите строки `listen [::]:...` вручную или:
+
+```bash
+sudo sed -i '/listen \[::\]/d' /etc/nginx/sites-available/default
+```
+
+(после правки снова `sudo nginx -t`.)
+
 Порядок, если **ещё нет** `/etc/letsencrypt/live/.../fullchain.pem` и nginx падает:
 
 ## 1. Починить полуустановленные пакеты
@@ -23,7 +45,7 @@ sudo rm -f /etc/nginx/sites-enabled/zxcvbnmlkjhgonline.com.conf
 ## 3. Включить только HTTP-конфиги из репозитория
 
 ```bash
-cd /opt/vpn-kotik
+cd /opt/vpn-kotik   # путь к клону репозитория
 git pull
 
 sudo cp deploy/nginx-pipiska.net.http-only.conf /etc/nginx/sites-available/pipiska.net.conf
@@ -33,7 +55,7 @@ sudo ln -sf /etc/nginx/sites-available/pipiska.net.conf /etc/nginx/sites-enabled
 sudo ln -sf /etc/nginx/sites-available/zxcvbnmlkjhgonline.com.conf /etc/nginx/sites-enabled/
 ```
 
-При необходимости отключите дефолтный сайт:
+Сразу отключите дефолтный сайт (см. раздел про `[::]:80` выше):
 
 ```bash
 sudo rm -f /etc/nginx/sites-enabled/default
