@@ -1,5 +1,7 @@
 # Nginx и SSL (два домена)
 
+Конфиги **без** `listen [::]:80` — на VPS без IPv6 иначе будет `socket() [::]:80 failed (97: Address family not supported by protocol)`.
+
 Порядок, если **ещё нет** `/etc/letsencrypt/live/.../fullchain.pem` и nginx падает:
 
 ## 1. Починить полуустановленные пакеты
